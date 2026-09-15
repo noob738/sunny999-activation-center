@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SUNNY 999 BOT — ACTIVATION</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;padding:16px 12px;min-height:100vh;
+font-family:Arial,sans-serif;color:#fff;
+background:#05010b;
+background:radial-gradient(circle at top,#551477,#10051a 45%,#020204)
+}
+.wrap{max-width:480px;margin:auto}
+
+.logo{
+text-align:center;font-size:27px;font-weight:900;
+color:#fff;text-shadow:0 0 8px #00eaff,0 0 22px #b000ff;
+margin:8px 0 4px
+}
+.sub{
+text-align:center;color:#00eaff;font-weight:bold;
+font-size:14px;margin-bottom:18px
+}
+
+.info{
+background:linear-gradient(135deg,#190b27,#0b1722);
+border:1px solid #9d28ff;border-radius:15px;
+padding:15px;margin-bottom:13px;
+box-shadow:0 0 18px #6d00a8
+}
+.info p{
+font-size:13px;line-height:1.6;color:#ddd;margin:7px 0
+}
+.info b{color:#ff62ff}
+
+.box{
+background:rgba(15,7,25,.94);
+border:1px solid #8d20c7;
+border-radius:16px;padding:16px;margin:13px 0;
+box-shadow:0 0 18px #590080
+}
+.title{
+font-size:18px;font-weight:900;
+color:#ff62ff;margin-bottom:13px
+}
+
+.grid{
+display:grid;grid-template-columns:1fr 1fr;gap:10px
+}
+.prime{
+padding:16px 7px;text-align:center;
+border-radius:12px;border:1px solid #54306b;
+background:#12091b;cursor:pointer;
+transition:.2s
+}
+.prime:hover,.prime.active{
+border-color:#00eaff;
+box-shadow:0 0 16px #00bfff;
+transform:scale(1.02)
+}
+.prime b{font-size:17px}
+.price{
+margin-top:6px;color:#00eaff;
+font-weight:900;font-size:16px
+}
+
+#login,#process,#success{display:none}
+
+label{
+display:block;color:#ddd;
+font-size:13px;font-weight:bold;margin:12px 0 5px
+}
+input{
+width:100%;padding:13px;
+border-radius:9px;border:1px solid #663080;
+background:#07030b;color:#fff;outline:none
+}
+input:focus{
+border-color:#00eaff;
+box-shadow:0 0 9px #00bfff
+}
+.help{
+font-size:11px;color:#999;
+margin-top:4px;line-height:1.4
+}
+
+button{
+width:100%;padding:14px;margin-top:15px;
+border:0;border-radius:10px;color:#fff;
+font-weight:900;font-size:15px;cursor:pointer;
+background:linear-gradient(90deg,#8b00ff,#00bfff);
+box-shadow:0 0 15px #7200ff
+}
+
+.status{
+font-weight:bold;text-align:center;
+color:#00eaff;margin:10px
+}
+
+.progress{
+height:12px;background:#21152a;
+border-radius:20px;overflow:hidden;margin:18px 0
+}
+.bar{
+height:100%;width:0;
+background:linear-gradient(90deg,#00eaff,#8b00ff,#ff00d4);
+transition:.25s
+}
+
+.big{
+font-size:23px;font-weight:900;
+color:#48ff91;text-align:center
+}
+.fire{
+font-size:19px;font-weight:bold;
+color:#ffb300;text-align:center;margin-top:12px
+}
+
+.steps p{
+font-size:13px;color:#ddd;
+line-height:1.55;margin:8px 0
+}
+.steps b{color:#00eaff}
+
+.note{
+text-align:center;color:#aaa;
+font-size:12px;line-height:1.5;margin-top:9px
+}
+
+.footer{
+text-align:center;color:#777;
+font-size:11px;padding:8px 0 25px
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<div class="logo">👑 SUNNY 999 BOT</div>
+<div class="sub">FREE FIRE ACCOUNT ACTIVATION</div>
+
+<div class="info">
+<p>🛒 <b>Aapne pehle hamare store se Free Fire ID purchase ki thi.</b></p>
+
+<p>🔓 Purchased ID ko activate/open karne ke liye
+activation process start karo.</p>
+
+<p>👇 Apna <b>Prime select</b> karo, phir
+Gmail/Login ID, Password aur Activation Code enter karo.</p>
+</div>
+
+
+<div class="box" id="select">
+
+<div class="title">🔥 SELECT YOUR PRIME</div>
+
+<div class="grid">
+
+<div class="prime" onclick="choose(5,this)">
+<b>PRIME 5</b>
+<div class="price">₹999</div>
+</div>
+
+<div class="prime" onclick="choose(6,this)">
+<b>PRIME 6</b>
+<div class="price">₹1,299</div>
+</div>
+
+<div class="prime" onclick="choose(7,this)">
+<b>PRIME 7</b>
+<div class="price">₹1,999</div>
+</div>
+
+<div class="prime" onclick="choose(8,this)">
+<b>PRIME 8</b>
+<div class="price">₹3,999</div>
+</div>
+
+</div>
+
+
+<div id="login">
+
+<label>GMAIL / LOGIN ID</label>
+<input id="mail" placeholder="Apna Gmail / Login ID enter karo">
+<div class="help">
+ℹ️ Purchased ID ki Login ID yahan enter karo.
+</div>
+
+<label>PASSWORD</label>
+<input id="pass" type="password" placeholder="Apna Password enter karo">
+<div class="help">
+🔐 Purchased ID ka Password yahan enter karo.
+</div>
+
+<label>ACTIVATION CODE</label>
+<input id="code" placeholder="Activation Code enter karo">
+<div class="help">
+🔑 Approval ke baad mila Activation Code yahan enter karo.
+</div>
+
+<button onclick="activate()">
+⚡ ACTIVATE NOW →
+</button>
+
+</div>
+</div>
+
+
+<div class="box" id="process">
+
+<div class="title">⚡ ACTIVATION PROCESS</div>
+
+<div class="status" id="st">
+⏳ PROCESSING...
+</div>
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+<div class="status" id="pct">0%</div>
+
+<div class="note" id="processNote">
+Activation server se connection establish ho raha hai...
+</div>
+
+</div>
+
+
+<div class="box" id="success">
+
+<div class="big">✅ ACTIVATION READY</div>
+
+<div class="fire">🔥 FREE FIRE OPENED</div>
+
+<div class="note">
+Aapki purchased ID activation ke liye ready hai.
+</div>
+
+<button onclick="loginNow()">
+🚀 LOGIN NOW
+</button>
+
+<div class="note">
+👉 Login Now par click karke login process continue karo.
+</div>
+
+</div>
+
+
+<div class="box steps">
+
+<div class="title">📋 KAISE ACTIVATE KARE?</div>
+
+<p>1️⃣ <b>Prime Select:</b> Apna purchased Prime select karo.</p>
+
+<p>2️⃣ <b>Login Details:</b> Gmail/Login ID aur Password enter karo.</p>
+
+<p>3️⃣ <b>Activation Code:</b> Apna Activation Code enter karo.</p>
+
+<p>4️⃣ <b>Activate:</b> ACTIVATE NOW button par click karo.</p>
+
+<p>5️⃣ <b>Processing:</b> Server activation process start karega.</p>
+
+<p>6️⃣ <b>Login Now:</b> Activation ready hone ke baad login process continue karo.</p>
+
+</div>
+
+
+<div class="box">
+
+<div class="title">💬 NEED HELP?</div>
+
+<div class="note">
+Activation process mein problem aaye to
+SUNNY 999 BOT support se contact karo.
+</div>
+
+<button onclick="openSupport()">
+💬 CONTACT SUPPORT
+</button>
+
+</div>
+
+
+<div class="footer">
+⚡ POWERED BY SUNNY 999 BOT ⚡
+</div>
+
+</div>
+
+
+<script>
+
+let prime=0;
+
+function choose(p,e){
+
+prime=p;
+
+document.querySelectorAll(".prime")
+.forEach(x=>x.classList.remove("active"));
+
+e.classList.add("active");
+
+document.getElementById("login").style.display="block";
+
+}
+
+
+function activate(){
+
+let mail=document.getElementById("mail").value.trim();
+let pass=document.getElementById("pass").value.trim();
+let code=document.getElementById("code").value.trim();
+
+if(!mail || !pass || !code){
+alert("Gmail / Password / Activation Code enter karo.");
+return;
+}
+
+document.getElementById("select").style.display="none";
+document.getElementById("process").style.display="block";
+
+let n=0;
+
+let bar=document.getElementById("bar");
+let pct=document.getElementById("pct");
+let st=document.getElementById("st");
+let note=document.getElementById("processNote");
+
+let t=setInterval(()=>{
+
+n+=5;
+
+if(n<35){
+st.innerText="⏳ PROCESSING...";
+note.innerText="Activation request process ho rahi hai...";
+}
+
+else if(n<65){
+st.innerText="🔄 CONNECTING TO SERVER...";
+note.innerText="Server connection establish ho raha hai...";
+}
+
+else if(n<90){
+st.innerText="🟢 SERVER LOADING...";
+note.innerText="Activation server response load ho raha hai...";
+}
+
+else{
+st.innerText="⚡ FINALIZING ACTIVATION...";
+note.innerText="Activation process complete ho raha hai...";
+}
+
+bar.style.width=n+"%";
+pct.innerText=n+"%";
+
+if(n>=99){
+
+clearInterval(t);
+
+setTimeout(()=>{
+
+document.getElementById("process").style.display="none";
+document.getElementById("success").style.display="block";
+
+},900);
+
+}
+
+},220);
+
+}
+
+
+function loginNow(){
+
+alert(
+"🔥 FREE FIRE OPENED\n\n"+
+"LOGIN NOW\n\n"+
+"Prime "+prime+" activation process continue."
+);
+
+}
+
+
+function openSupport(){
+
+window.open(
+"https://t.me/FFAccountXBot",
+"_blank"
+);
+
+}
+
+</script>
+
+</body>
+</html>
