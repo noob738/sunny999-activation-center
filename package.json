@@ -1,0 +1,12 @@
+{
+  "name": "id-activation-bot",
+  "version": "1.0.0",
+  "description": "SUNNY 999 ID Activation Telegram Bot",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.66.0"
+  }
+}
